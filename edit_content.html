@@ -1,0 +1,44 @@
+
+<?
+//if(isset($_POST['redag_button']))
+  //{
+  mysql_connect($_SESSION['hostname_db'],$_SESSION['username_db'],$_SESSION['password_db']) OR DIE("Не можу створити з'єднання");
+  mysql_select_db($_SESSION['name_db']) or die(mysql_error());
+  $table='content';
+  $pole='title';
+  $dani=$_SESSION['temp_edit_content.html'];
+  $r2=mysql_query("select distinct * from $table where $pole=\"$dani\"");
+  $f=mysql_fetch_array($r2);
+  $_SESSION['temp0']=$f['title'];
+  $_SESSION['temp1']=$f['material'];
+  //$_SESSION['temp2']=$f['image'];
+		
+  //}
+?>
+
+
+<P align="center">
+    
+	
+             
+	     
+	    <form action="edit_content.php" method="post" enctype="multipart/form-data" name="edit_text">
+		<input type="text" name="show" size="35" value="<? echo $_SESSION['temp0']; ?>" DISABLED>
+		<input type="text" name="search_name" size="25" value="<? echo $_SESSION['temp0']; ?>" style="display:none">
+		<input type="text" name="name_co" size="25" value="<? echo $_SESSION['temp0']; ?>">
+		<br>
+		<textarea name="content" cols="90" rows="14" ><? echo $_SESSION['temp1']; unset($_SESSION['temp1']);?></textarea>
+		<br>
+		<INPUT TYPE="submit" NAME="edit_button" VALUE="Save changes">
+		<br>
+		<br>
+	    </form>
+           
+	<br>
+	<br>
+	<form action="edit_content.php" name="vudalenna" method="post">
+	<input type="text" name="search_name" size="25" value="<? echo $_SESSION['temp0']; unset($_SESSION['temp0']);?>" style="display:none">
+	<INPUT TYPE="submit" NAME="delete_button" VALUE="Remove">  
+	</form>
+</P>
+
